@@ -2,6 +2,7 @@ import 'package:bloc_tutorial/bloc/counter_bloc.dart';
 import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:bloc_tutorial/home_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
+import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
 import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -18,7 +19,8 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
         providers: [
           BlocProvider(create: (_) => CounterCubit()),
-          BlocProvider(create: (_) => CounterBloc())
+          BlocProvider(create: (_) => CounterBloc()),
+          BlocProvider(create: (_) => TodoCubit())
         ],
         child: MaterialApp(
           title: "Block Tutorial",
