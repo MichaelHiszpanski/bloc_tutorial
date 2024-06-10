@@ -27,11 +27,9 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text("Hello World Home Page"),
-            BlocBuilder<CounterBloc, CounterState>(
-                bloc: counterBloc,
-                builder: (context, counter) {
-                  return Text("Counter is ${counter.count}");
-                })
+            BlocBuilder<CounterBloc, CounterState>(builder: (context, counter) {
+              return Text("Counter is ${counter.count}");
+            })
           ],
         ),
       ),
