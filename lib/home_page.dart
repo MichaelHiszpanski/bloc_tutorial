@@ -1,3 +1,4 @@
+import 'package:bloc_tutorial/bloc/counter_bloc.dart';
 import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -15,6 +16,7 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     final counterCubit = BlocProvider.of<CounterCubit>(context);
+    final counterBloc = BlocProvider.of<CounterBloc>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -25,10 +27,10 @@ class _HomePageState extends State<HomePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             const Text("Hello World Home Page"),
-            BlocBuilder<CounterCubit, int>(
-                bloc: counterCubit,
+            BlocBuilder<CounterBloc, CounterState>(
+                bloc: counterBloc,
                 builder: (context, counter) {
-                  return Text("Counter is $counter");
+                  return Text("Counter is ${counter.count}");
                 })
           ],
         ),
@@ -36,15 +38,28 @@ class _HomePageState extends State<HomePage> {
       floatingActionButton:
           Column(mainAxisAlignment: MainAxisAlignment.end, children: [
         FloatingActionButton(
-          onPressed: () => counterCubit.increment(),
-          tooltip: "Increment",
+          onPressed: () => counterBloc.add(CounterIncrement()),
+          tooltip: 'Increment',
           child: const Icon(Icons.add),
         ),
+        const SizedBox(height: 8),
         FloatingActionButton(
-          onPressed: () => counterCubit.decrement(),
-          tooltip: "Decrement",
-          child: const Icon(Icons.minimize),
-        )
+          onPressed: () => counterBloc.add(CounterDecrement()),
+          tooltip: 'Decrement',
+          child: const Icon(Icons.remove),
+        ),
+        const SizedBox(height: 8),
+        // FloatingActionButton(
+        //   onPressed: () => counterCubit.increment(),
+        //   tooltip: 'Increment (Cubit)',
+        //   child: const Icon(Icons.add),
+        // ),
+        // const SizedBox(height: 8),
+        // FloatingActionButton(
+        //   onPressed: () => counterCubit.decrement(),
+        //   tooltip: 'Decrement (Cubit)',
+        //   child: const Icon(Icons.remove),
+        // ),
       ]),
     );
   }
