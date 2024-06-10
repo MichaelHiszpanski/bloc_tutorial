@@ -1,5 +1,6 @@
 import 'package:bloc_tutorial/bloc/counter_bloc.dart';
 import 'package:bloc_tutorial/cubit/counter_cubit.dart';
+import 'package:bloc_tutorial/utils/bottom_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -59,6 +60,7 @@ class _HomePageState extends State<HomePage> {
         //   child: const Icon(Icons.remove),
         // ),
       ]),
+      bottomNavigationBar: BottomBar(title: "Bottom Bar", indexValue: 1),
     );
   }
 }
