@@ -1,7 +1,7 @@
 part of 'counter_bloc.dart';
 
-class CounterEvent {}
+sealed class CounterEvent {}
 
-class CounterIncrement extends CounterEvent {}
+final class CounterIncrement extends CounterEvent {}
 
-class CounterDecrement extends CounterEvent {}
+final class CounterDecrement extends CounterEvent {}
