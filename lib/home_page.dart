@@ -12,10 +12,9 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final counterCubit = CounterCubit();
-
   @override
   Widget build(BuildContext context) {
+    final counterCubit = BlocProvider.of<CounterCubit>(context);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
@@ -34,11 +33,19 @@ class _HomePageState extends State<HomePage> {
           ],
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () => counterCubit.increment(),
-        tooltip: "Increment",
-        child: const Icon(Icons.add),
-      ),
+      floatingActionButton:
+          Column(mainAxisAlignment: MainAxisAlignment.end, children: [
+        FloatingActionButton(
+          onPressed: () => counterCubit.increment(),
+          tooltip: "Increment",
+          child: const Icon(Icons.add),
+        ),
+        FloatingActionButton(
+          onPressed: () => counterCubit.decrement(),
+          tooltip: "Decrement",
+          child: const Icon(Icons.minimize),
+        )
+      ]),
     );
   }
 }
