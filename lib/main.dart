@@ -1,6 +1,7 @@
 import 'package:bloc_tutorial/bloc/counter_bloc.dart';
 import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:bloc_tutorial/home_page.dart';
+import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
 import 'package:bloc_tutorial/sign_in_app/login_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
@@ -21,7 +22,8 @@ class MainApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (_) => CounterCubit()),
           BlocProvider(create: (_) => CounterBloc()),
-          BlocProvider(create: (_) => TodoCubit())
+          BlocProvider(create: (_) => TodoCubit()),
+          BlocProvider(create: (_) => AuthBloc()),
         ],
         child: MaterialApp(
           title: "Block Tutorial",
