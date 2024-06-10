@@ -27,6 +27,10 @@ class _BottomBarState extends State<BottomBar> {
           icon: Icon(Icons.home),
           label: 'Home',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.home),
+          label: 'Sign In',
+        ),
       ],
       currentIndex: widget.indexValue,
       selectedItemColor: Colors.amber,
@@ -50,6 +54,12 @@ class _BottomBarState extends State<BottomBar> {
             Navigator.pushNamed(
               context,
               '/home_page',
+            );
+            break;
+          case 3:
+            Navigator.pushNamed(
+              context,
+              '/sign_in_app/login_page',
             );
             break;
         }
