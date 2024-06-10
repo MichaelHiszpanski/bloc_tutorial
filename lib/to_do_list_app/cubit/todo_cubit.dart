@@ -5,7 +5,7 @@ import 'package:meta/meta.dart';
 part 'todo_state.dart';
 
 class TodoCubit extends Cubit<TodoState> {
-  TodoCubit() : super(TodoInitial());
+  TodoCubit() : super(TodoLoaded(const []));
   void loadTodos(List<ToDo> todos) {
     emit(TodoLoaded(todos));
   }
