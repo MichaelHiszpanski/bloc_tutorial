@@ -82,7 +82,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(height: 20),
                   GradientButton(
                     onPressed: () {
-                      context.read<AuthBloc>().add(AuthLoginResuested(
+                      context.read<AuthBloc>().add(AuthLoginRequested(
                           email: emailController.text.trim(),
                           password: passwordController.text.trim()));
                     },
