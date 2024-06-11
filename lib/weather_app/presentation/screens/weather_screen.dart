@@ -1,7 +1,9 @@
+import 'package:bloc_tutorial/weather_app/bloc/weather_bloc.dart';
 import 'package:bloc_tutorial/weather_app/presentation/components/weather_card.dart';
 import 'package:bloc_tutorial/weather_app/presentation/components/weather_forecast_item.dart';
 import 'package:bloc_tutorial/weather_app/presentation/components/weather_temp_top_view.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -11,32 +13,10 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  late Future<Map<String, dynamic>> weather;
-  // Future<Map<String, dynamic>> getCurrentWeather() async {
-  //   try {
-  //     final result = await http.get(
-  //       Uri.parse(
-  //         "https://api.openweathermap.org/data/2.5/weather?q=$cityName,uk&APPID=$OPEN_WEATHER_API_KEY",
-  //       ),
-  //     );
-  //     print(result.body);
-
-  //     final data = jsonDecode(result.body);
-  //     print(data['cod']);
-  //     if (data['cod'] != 200) {
-  //       throw "An unexpetced error occured";
-  //     }
-
-  //     return data;
-  //   } catch (e) {
-  //     throw e.toString();
-  //   }
-  // }
-
   @override
   void initState() {
     super.initState();
-    weather = getCurrentWeather();
+    context.read<WeatherBloc>().add(WeatherFetched());
   }
 
   @override
@@ -47,112 +27,107 @@ class _WeatherScreenState extends State<WeatherScreen> {
         constraints: const BoxConstraints(
           maxWidth: maxColumnWidth,
         ),
-        child: FutureBuilder(
-            future: getCurrentWeather(),
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(child: CircularProgressIndicator());
-              }
-              if (snapshot.hasError) {
-                return Text(snapshot.error.toString());
-              }
-              final data = snapshot.data!;
-
-              print("status $statusWeather");
-              return Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    WeaherTempTopView(
-                      currentTemp: currentTemp,
-                      tempMin: tempMin,
-                      tempMax: tempMax,
-                      statusWeather: "$statusWeather - $description",
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        "Weather Forecast",
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const SizedBox(
-                      width: double.infinity,
-                      child: SingleChildScrollView(
-                        scrollDirection: Axis.horizontal,
-                        child: Row(
-                          children: [
-                            SizedBox(width: 16),
-                            // ...List.generate(
-                            //   30,
-                            //   (index) => Padding(
-                            //     padding: const EdgeInsets.only(right: 16.0),
-                            //     child: WeatherCard(),
-                            //   ),
-                            // ),
-                            // SizedBox(
-                            //   height: 120,
-                            //   child: ListView.builder(
-                            //       scrollDirection: Axis.horizontal,
-                            //       itemCount: 10,
-                            //       itemBuilder: (context, index) {
-                            //         return WeatherCard();
-                            //       }),
-                            // ),
-                            SizedBox(width: 16),
-                          ],
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 120,
-                      child: ListView.builder(
-                          scrollDirection: Axis.horizontal,
-                          itemCount: 10,
-                          itemBuilder: (context, index) {
-                            return const WeatherCard();
-                          }),
-                    ),
-                    const Text(
-                      "Additional Information",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+        child:
+            BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
+          if (state is WeatherFailure) {
+            return Center(child: Text(state.error));
+          }
+          if (state is! WeatherSuccess) {
+            return const Center(child: CircularProgressIndicator());
+          }
+          final data = state.weatherModel;
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                WeaherTempTopView(
+                  currentTemp: data.currentTemp,
+                  tempMin: data.tempMin,
+                  tempMax: data.tempMax,
+                  statusWeather: "${data.statusWeather} - ${data.description}",
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Weather Forecast",
+                    style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const SizedBox(
+                  width: double.infinity,
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
                       children: [
-                        WeatherForecastItem(
-                            textInfo: "$humidity",
-                            icon: Icons.water_drop,
-                            textValue: "Huminidty"),
-                        WeatherForecastItem(
-                            textInfo: "$windSpeed",
-                            icon: Icons.storm_rounded,
-                            textValue: "Wind Speed"),
-                        WeatherForecastItem(
-                            textInfo: "$pressure",
-                            icon: Icons.umbrella,
-                            textValue: "Pressure")
+                        SizedBox(width: 16),
+                        // ...List.generate(
+                        //   30,
+                        //   (index) => Padding(
+                        //     padding: const EdgeInsets.only(right: 16.0),
+                        //     child: WeatherCard(),
+                        //   ),
+                        // ),
+                        // SizedBox(
+                        //   height: 120,
+                        //   child: ListView.builder(
+                        //       scrollDirection: Axis.horizontal,
+                        //       itemCount: 10,
+                        //       itemBuilder: (context, index) {
+                        //         return WeatherCard();
+                        //       }),
+                        // ),
+                        SizedBox(width: 16),
                       ],
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Placeholder(
-                      fallbackHeight: 150,
-                    ),
+                  ),
+                ),
+                SizedBox(
+                  height: 120,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        return const WeatherCard();
+                      }),
+                ),
+                const Text(
+                  "Additional Information",
+                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    WeatherForecastItem(
+                        textInfo: "${data.currentHumidity}",
+                        icon: Icons.water_drop,
+                        textValue: "Huminidty"),
+                    WeatherForecastItem(
+                        textInfo: "${data.windSpeed}",
+                        icon: Icons.storm_rounded,
+                        textValue: "Wind Speed"),
+                    WeatherForecastItem(
+                        textInfo: "${data.currentPressure}",
+                        icon: Icons.umbrella,
+                        textValue: "Pressure")
                   ],
                 ),
-              );
-            }),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Placeholder(
+                  fallbackHeight: 150,
+                ),
+              ],
+            ),
+          );
+        }),
       ),
     );
   }
