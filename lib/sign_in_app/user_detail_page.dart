@@ -9,7 +9,6 @@ class UserDetail extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final authState = context.watch<AuthBloc>().state as AuthSuccess;
     return Scaffold(
       appBar: AppBar(),
       body: BlocConsumer<AuthBloc, AuthState>(
@@ -25,10 +24,11 @@ class UserDetail extends StatelessWidget {
           if (state is AuthLoading) {
             return const Center(child: CircularProgressIndicator());
           }
+
           return Center(
             child: Column(
               children: [
-                Text("Success state ${authState.uid}"),
+                Text("Success state ${(state as AuthSuccess).uid}"),
                 const SizedBox(
                   height: 20.0,
                 ),

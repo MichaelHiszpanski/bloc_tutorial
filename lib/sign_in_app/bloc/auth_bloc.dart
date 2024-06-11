@@ -6,37 +6,41 @@ part 'auth_state.dart';
 
 class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc() : super(AuthInitial()) {
-    on<AuthLoginRequested>((event, emit) async {
-      emit(AuthLoading());
-      try {
-        final email = event.email;
-        final password = event.password;
-        final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+    on<AuthLoginRequested>(_onAuthLoginRequested);
+    on<AuthLogOutRequested>(_onAuthLogOutRequest);
+  }
 
-        if (!emailRegex.hasMatch(email)) {
-          emit(AuthFailure('Invalid email format'));
-          return;
-        } else if (password.length < 6) {
-          emit(AuthFailure('Password length should be at least 6 characters'));
-          return;
-        }
+  void _onAuthLoginRequested(event, emit) async {
+    emit(AuthLoading());
+    try {
+      final email = event.email;
+      final password = event.password;
+      final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
 
-        await Future.delayed(const Duration(seconds: 2), () {
-          return emit(AuthSuccess(uid: '$email-$password'));
-        });
-      } catch (e) {
-        return emit(AuthFailure(e.toString()));
+      if (!emailRegex.hasMatch(email)) {
+        emit(AuthFailure('Invalid email format'));
+        return;
+      } else if (password.length < 6) {
+        emit(AuthFailure('Password length should be at least 6 characters'));
+        return;
       }
-    });
-    on<AuthLogOutRequested>((event, emit) async {
-      emit(AuthLoading());
-      try {
-        await Future.delayed(const Duration(seconds: 2), () {
-          return emit(AuthInitial());
-        });
-      } catch (e) {
-        emit(AuthFailure(e.toString()));
-      }
-    });
+
+      await Future.delayed(const Duration(seconds: 2), () {
+        return emit(AuthSuccess(uid: '$email-$password'));
+      });
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
+  }
+
+  void _onAuthLogOutRequest(event, emit) async {
+    emit(AuthLoading());
+    try {
+      await Future.delayed(const Duration(seconds: 2), () {
+        return emit(AuthInitial());
+      });
+    } catch (e) {
+      emit(AuthFailure(e.toString()));
+    }
   }
 }
