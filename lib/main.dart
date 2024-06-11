@@ -8,6 +8,7 @@ import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
 import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
+import 'package:bloc_tutorial/weather_app/bloc/weather_bloc.dart';
 import 'package:bloc_tutorial/weather_app/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -28,6 +29,7 @@ class MainApp extends StatelessWidget {
           BlocProvider(create: (_) => CounterBloc()),
           BlocProvider(create: (_) => TodoCubit()),
           BlocProvider(create: (_) => AuthBloc()),
+          BlocProvider(create: (_) => WeatherBloc()),
         ],
         child: MaterialApp(
           title: "Block Tutorial",
