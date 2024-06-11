@@ -9,8 +9,20 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<AuthLoginRequested>(_onAuthLoginRequested);
     on<AuthLogOutRequested>(_onAuthLogOutRequest);
   }
+  @override
+  void onChange(Change<AuthState> change) {
+    super.onChange(change);
+    print('AuthBlock - $change');
+  }
 
-  void _onAuthLoginRequested(event, emit) async {
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    // TODO: implement onError
+    super.onError(error, stackTrace);
+  }
+
+  void _onAuthLoginRequested(
+      AuthLoginRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
       final email = event.email;
@@ -33,7 +45,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  void _onAuthLogOutRequest(event, emit) async {
+  void _onAuthLogOutRequest(
+      AuthLogOutRequested event, Emitter<AuthState> emit) async {
     emit(AuthLoading());
     try {
       await Future.delayed(const Duration(seconds: 2), () {

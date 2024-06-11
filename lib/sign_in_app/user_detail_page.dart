@@ -25,22 +25,25 @@ class UserDetail extends StatelessWidget {
             return const Center(child: CircularProgressIndicator());
           }
 
-          return Center(
-            child: Column(
-              children: [
-                Text("Success state ${(state as AuthSuccess).uid}"),
-                const SizedBox(
-                  height: 20.0,
-                ),
-                GradientButton(
-                  onPressed: () {
-                    context.read<AuthBloc>().add(AuthLogOutRequested());
-                  },
-                  buttonName: "Log Out",
-                )
-              ],
-            ),
-          );
+          if (state is AuthSuccess) {
+            return Center(
+              child: Column(
+                children: [
+                  Text("Success state ${(state as AuthSuccess).uid}"),
+                  const SizedBox(
+                    height: 20.0,
+                  ),
+                  GradientButton(
+                    onPressed: () {
+                      context.read<AuthBloc>().add(AuthLogOutRequested());
+                    },
+                    buttonName: "Log Out",
+                  )
+                ],
+              ),
+            );
+          }
+          return const Center(child: Text('Unexpected state'));
         },
       ),
     );
