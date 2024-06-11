@@ -1,11 +1,7 @@
-import 'dart:convert';
-import 'package:http/http.dart' as http;
-import 'package:bloc_tutorial/weather_app/components/weather_card.dart';
-import 'package:bloc_tutorial/weather_app/components/weather_forecast_item.dart';
-import 'package:bloc_tutorial/weather_app/components/weather_temp_top_view.dart';
+import 'package:bloc_tutorial/weather_app/presentation/components/weather_card.dart';
+import 'package:bloc_tutorial/weather_app/presentation/components/weather_forecast_item.dart';
+import 'package:bloc_tutorial/weather_app/presentation/components/weather_temp_top_view.dart';
 import 'package:flutter/material.dart';
-
-const OPEN_WEATHER_API_KEY = "c894335f9060dd4919b86b83754ca81e";
 
 class WeatherScreen extends StatefulWidget {
   const WeatherScreen({super.key});
@@ -15,28 +11,27 @@ class WeatherScreen extends StatefulWidget {
 }
 
 class _WeatherScreenState extends State<WeatherScreen> {
-  String cityName = "London";
   late Future<Map<String, dynamic>> weather;
-  Future<Map<String, dynamic>> getCurrentWeather() async {
-    try {
-      final result = await http.get(
-        Uri.parse(
-          "https://api.openweathermap.org/data/2.5/weather?q=$cityName,uk&APPID=$OPEN_WEATHER_API_KEY",
-        ),
-      );
-      print(result.body);
+  // Future<Map<String, dynamic>> getCurrentWeather() async {
+  //   try {
+  //     final result = await http.get(
+  //       Uri.parse(
+  //         "https://api.openweathermap.org/data/2.5/weather?q=$cityName,uk&APPID=$OPEN_WEATHER_API_KEY",
+  //       ),
+  //     );
+  //     print(result.body);
 
-      final data = jsonDecode(result.body);
-      print(data['cod']);
-      if (data['cod'] != 200) {
-        throw "An unexpetced error occured";
-      }
+  //     final data = jsonDecode(result.body);
+  //     print(data['cod']);
+  //     if (data['cod'] != 200) {
+  //       throw "An unexpetced error occured";
+  //     }
 
-      return data;
-    } catch (e) {
-      throw e.toString();
-    }
-  }
+  //     return data;
+  //   } catch (e) {
+  //     throw e.toString();
+  //   }
+  // }
 
   @override
   void initState() {
@@ -62,14 +57,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 return Text(snapshot.error.toString());
               }
               final data = snapshot.data!;
-              final currentTemp = data['main']['temp'];
-              final pressure = data['main']['pressure'];
-              final humidity = data['main']['humidity'];
-              final windSpeed = data['wind']['speed'];
-              final tempMin = data['main']['temp_min'];
-              final tempMax = data['main']['temp_max'];
-              final statusWeather = data['weather'][0]['main'];
-              final description = data['weather'][0]['description'];
+
               print("status $statusWeather");
               return Padding(
                 padding: const EdgeInsets.all(16.0),

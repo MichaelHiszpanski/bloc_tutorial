@@ -1,6 +1,6 @@
 import 'package:bloc_tutorial/components/bottom_bar.dart';
 import 'package:flutter/material.dart';
-import 'weather_screen.dart';
+import 'presentation/screens/weather_screen.dart';
 
 class WeatherPage extends StatelessWidget {
   WeatherPage({Key? key}) : super(key: key);
