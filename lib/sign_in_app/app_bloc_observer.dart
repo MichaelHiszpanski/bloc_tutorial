@@ -6,4 +6,10 @@ class AppBlocObserver extends BlocObserver {
     super.onCreate(bloc);
     print('Block - $bloc  - ${bloc.runtimeType} Created! State ${bloc.state}');
   }
+
+  @override
+  void onChange(BlocBase bloc, Change change) {
+    super.onChange(bloc, change);
+    print('Block - $bloc  Changed! State ${bloc.state} Change - ${change}');
+  }
 }

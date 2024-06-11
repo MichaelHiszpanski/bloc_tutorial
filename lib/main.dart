@@ -8,6 +8,7 @@ import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
 import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
+import 'package:bloc_tutorial/weather_app/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -39,7 +40,8 @@ class MainApp extends StatelessWidget {
             '/to_do_list_app/add_todo_page': (_) => const AddTodoPage(),
             '/home_page': (_) => const HomePage(title: "Home Page"),
             '/sign_in_app/login_page': (_) => const LoginScreen(),
-            '/sign_in_app/user_detail': (_) => const UserDetail()
+            '/sign_in_app/user_detail': (_) => const UserDetail(),
+            '/weather_app/weather_page': (_) => WeatherPage()
           },
         ));
   }

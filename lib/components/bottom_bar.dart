@@ -31,6 +31,10 @@ class _BottomBarState extends State<BottomBar> {
           icon: Icon(Icons.home),
           label: 'Sign In',
         ),
+        BottomNavigationBarItem(
+          icon: Icon(Icons.cloud),
+          label: 'Weather',
+        ),
       ],
       currentIndex: widget.indexValue,
       selectedItemColor: Colors.amber,
@@ -60,6 +64,12 @@ class _BottomBarState extends State<BottomBar> {
             Navigator.pushNamed(
               context,
               '/sign_in_app/login_page',
+            );
+            break;
+          case 4:
+            Navigator.pushNamed(
+              context,
+              '/weather_app/weather_page',
             );
             break;
         }
