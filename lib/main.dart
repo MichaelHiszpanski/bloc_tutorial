@@ -1,6 +1,7 @@
 import 'package:bloc_tutorial/bloc/counter_bloc.dart';
 import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:bloc_tutorial/home_page.dart';
+import 'package:bloc_tutorial/sign_in_app/app_bloc_observer.dart';
 import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
 import 'package:bloc_tutorial/sign_in_app/login_page.dart';
 import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
@@ -11,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() {
+  Bloc.observer = AppBlocObserver();
   runApp(const MainApp());
 }
 

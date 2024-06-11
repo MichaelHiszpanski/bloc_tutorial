@@ -54,11 +54,11 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   const SizedBox(height: 50),
                   const SocialButton(
-                      iconPath: 'assets/svgs/g_logo.svg',
+                      iconPath: 'assets/svg/g_logo.svg',
                       label: 'Continue with Google'),
                   const SizedBox(height: 20),
                   const SocialButton(
-                    iconPath: 'assets/svgs/f_logo.svg',
+                    iconPath: 'assets/svg/f_logo.svg',
                     label: 'Continue with Facebook',
                     horizontalPadding: 90,
                   ),
