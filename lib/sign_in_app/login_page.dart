@@ -3,6 +3,7 @@ import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
 import 'package:bloc_tutorial/sign_in_app/components/gradient_button.dart';
 import 'package:bloc_tutorial/sign_in_app/components/login_field.dart';
 import 'package:bloc_tutorial/sign_in_app/components/social_button.dart';
+import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -31,8 +32,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 .showSnackBar(SnackBar(content: Text(state.uid)));
             Navigator.pushAndRemoveUntil(
                 context,
-                MaterialPageRoute(
-                    builder: (context) => const HomePage(title: "Home Page")),
+                MaterialPageRoute(builder: (context) => const UserDetail()),
                 (route) => false);
           }
         },

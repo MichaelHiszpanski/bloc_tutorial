@@ -3,6 +3,7 @@ import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:bloc_tutorial/home_page.dart';
 import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
 import 'package:bloc_tutorial/sign_in_app/login_page.dart';
+import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
 import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
@@ -35,7 +36,8 @@ class MainApp extends StatelessWidget {
             '/to_do_list_app/todo_list': (_) => const TodoList(),
             '/to_do_list_app/add_todo_page': (_) => const AddTodoPage(),
             '/home_page': (_) => const HomePage(title: "Home Page"),
-            '/sign_in_app/login_page': (_) => const LoginScreen()
+            '/sign_in_app/login_page': (_) => const LoginScreen(),
+            '/sign_in_app/user_detail': (_) => const UserDetail()
           },
         ));
   }
