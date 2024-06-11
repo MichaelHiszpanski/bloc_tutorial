@@ -30,6 +30,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child:
             BlocBuilder<WeatherBloc, WeatherState>(builder: (context, state) {
           if (state is WeatherFailure) {
+            print(state.error);
             return Center(child: Text(state.error));
           }
           if (state is! WeatherSuccess) {

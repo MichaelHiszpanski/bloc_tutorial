@@ -61,9 +61,7 @@ class WeatherModel {
     };
   }
 
-  factory WeatherModel.fromMap(Map<String, dynamic> map) {
-    final currentData = map['list'][0];
-    //final data = snapshot.data!;
+  factory WeatherModel.fromMap(Map<String, dynamic> currentData) {
     return WeatherModel(
       currentTemp: currentData['main']['temp'],
       currentSky: currentData['weather'][0]['main'],

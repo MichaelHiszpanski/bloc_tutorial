@@ -28,16 +28,17 @@ class MainApp extends StatelessWidget {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(
-            create: (_) => WeatherRepository(WeatherDataProvider()))
+            create: (context) => WeatherRepository(WeatherDataProvider()))
       ],
       child: MultiBlocProvider(
           providers: [
-            BlocProvider(create: (_) => CounterCubit()),
-            BlocProvider(create: (_) => CounterBloc()),
-            BlocProvider(create: (_) => TodoCubit()),
-            BlocProvider(create: (_) => AuthBloc()),
+            BlocProvider(create: (context) => CounterCubit()),
+            BlocProvider(create: (context) => CounterBloc()),
+            BlocProvider(create: (context) => TodoCubit()),
+            BlocProvider(create: (context) => AuthBloc()),
             BlocProvider(
-                create: (_) => WeatherBloc(context.read<WeatherRepository>())),
+                create: (context) =>
+                    WeatherBloc(context.read<WeatherRepository>())),
           ],
           child: MaterialApp(
             title: "Block Tutorial",
