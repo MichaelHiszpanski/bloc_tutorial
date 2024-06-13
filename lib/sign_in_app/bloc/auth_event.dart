@@ -11,3 +11,7 @@ final class AuthLoginRequested extends AuthEvent {
 }
 
 final class AuthLogOutRequested extends AuthEvent {}
+
+final class ClearEmailErrors extends AuthEvent {}
+
+final class ClearPasswordErrors extends AuthEvent {}

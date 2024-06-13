@@ -18,6 +18,21 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  List<String> emailErrors = [];
+  List<String> passwordErrors = [];
+  void clearEmailErrors() {
+    setState(() {
+      print('Clearing email errors');
+      context.read<AuthBloc>().add(ClearEmailErrors());
+    });
+  }
+
+  void clearPasswordErrors() {
+    setState(() {
+      print('Clearing password errors');
+      context.read<AuthBloc>().add(ClearPasswordErrors());
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -71,28 +86,22 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(height: 15),
-                  LoginField(
-                    hintText: 'Email',
-                    controller: emailController,
-                  ),
-                  const SizedBox(height: 15),
-                  LoginField(
-                    hintText: 'Password',
-                    controller: passwordController,
-                  ),
                   const SizedBox(height: 20),
                   CustomTextInput(
-                    hintText: 'email2',
+                    hintText: 'Email',
                     controller: emailController,
                     errorMessages:
                         state is AuthFailure ? state.emailErrors : [],
+                    onFocus: clearEmailErrors,
                   ),
                   const SizedBox(height: 20),
                   CustomTextInput(
-                      hintText: 'password2',
-                      controller: passwordController,
-                      errorMessages:
-                          state is AuthFailure ? state.passwordErrors : []),
+                    hintText: 'Password',
+                    controller: passwordController,
+                    errorMessages:
+                        state is AuthFailure ? state.passwordErrors : [],
+                    onFocus: clearPasswordErrors,
+                  ),
                   const SizedBox(height: 20),
                   GradientButton(
                     onPressed: () {

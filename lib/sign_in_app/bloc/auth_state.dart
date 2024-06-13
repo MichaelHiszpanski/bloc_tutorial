@@ -26,6 +26,18 @@ final class AuthFailure extends AuthState {
     this.emailErrors = const [],
     this.passwordErrors = const [],
   });
+  AuthFailure copyWith({
+    String? error,
+    List<String>? emailErrors,
+    List<String>? passwordErrors,
+  }) {
+    return AuthFailure(
+      error: error ?? this.error,
+      emailErrors: emailErrors ?? this.emailErrors,
+      passwordErrors: passwordErrors ?? this.passwordErrors,
+    );
+  }
+
   @override
   List<Object?> get props => [error];
 }
