@@ -60,5 +60,31 @@ void main() {
         verify(() => mockWeatherRepository.getCurrentWeather()).called(1);
       },
     );
+    test('back to initial state is WeatherInitial', () {
+      weatherBloc.state.props.add("");
+      expect(weatherBloc.state, WeatherInitial());
+    });
+
+    blocTest<WeatherBloc, WeatherState>(
+      'emits [WeatherLoading, WeatherSuccess, WeatherInitial] when WeatherFetched is added and then reset',
+      build: () {
+        when(() => mockWeatherRepository.getCurrentWeather())
+            .thenAnswer((_) async => MockWeatherModel());
+        return weatherBloc;
+      },
+      act: (bloc) async {
+        bloc.add(WeatherFetched());
+        await Future.delayed(Duration(milliseconds: 100));
+        bloc.emit(WeatherInitial());
+      },
+      expect: () => [
+        WeatherLoading(),
+        isA<WeatherSuccess>(),
+        WeatherInitial(),
+      ],
+      verify: (_) {
+        verify(() => mockWeatherRepository.getCurrentWeather()).called(1);
+      },
+    );
   });
 }
