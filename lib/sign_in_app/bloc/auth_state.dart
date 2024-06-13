@@ -18,8 +18,14 @@ final class AuthSuccess extends AuthState {
 
 final class AuthFailure extends AuthState {
   final String error;
+  final List<String> emailErrors;
+  final List<String> passwordErrors;
 
-  AuthFailure(this.error);
+  AuthFailure({
+    required this.error,
+    this.emailErrors = const [],
+    this.passwordErrors = const [],
+  });
   @override
   List<Object?> get props => [error];
 }

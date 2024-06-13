@@ -34,12 +34,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       final email = event.email;
       final password = event.password;
       final emailRegex = RegExp(r'^[^@]+@[^@]+\.[^@]+');
+      List<String> emailErrors = [];
+      List<String> passwordErrors = [];
 
       if (!emailRegex.hasMatch(email)) {
-        emit(AuthFailure('Invalid email format'));
-        return;
-      } else if (password.length < 6) {
-        emit(AuthFailure('Password length should be at least 6 characters'));
+        emailErrors.add('Invalid email format');
+      }
+      if (password.length < 6) {
+        passwordErrors.add('Password length should be at least 6 characters');
+      }
+      if (emailErrors.isNotEmpty || passwordErrors.isNotEmpty) {
+        emit(AuthFailure(
+          error: 'Validation Error',
+          emailErrors: emailErrors,
+          passwordErrors: passwordErrors,
+        ));
         return;
       }
 
@@ -47,7 +56,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return emit(AuthSuccess(uid: '$email-$password'));
       });
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      emit(AuthFailure(error: e.toString()));
     }
   }
 
@@ -59,7 +68,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         return emit(AuthInitial());
       });
     } catch (e) {
-      emit(AuthFailure(e.toString()));
+      emit(AuthFailure(error: e.toString()));
     }
   }
 }

@@ -1,3 +1,4 @@
+import 'package:bloc_tutorial/components/custom_text_input.dart';
 import 'package:bloc_tutorial/home_page.dart';
 import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
 import 'package:bloc_tutorial/sign_in_app/components/gradient_button.dart';
@@ -79,6 +80,19 @@ class _LoginScreenState extends State<LoginScreen> {
                     hintText: 'Password',
                     controller: passwordController,
                   ),
+                  const SizedBox(height: 20),
+                  CustomTextInput(
+                    hintText: 'email2',
+                    controller: emailController,
+                    errorMessages:
+                        state is AuthFailure ? state.emailErrors : [],
+                  ),
+                  const SizedBox(height: 20),
+                  CustomTextInput(
+                      hintText: 'password2',
+                      controller: passwordController,
+                      errorMessages:
+                          state is AuthFailure ? state.passwordErrors : []),
                   const SizedBox(height: 20),
                   GradientButton(
                     onPressed: () {
