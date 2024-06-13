@@ -44,8 +44,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         passwordErrors.add('Password length should be at least 6 characters');
       }
       if (emailErrors.isNotEmpty || passwordErrors.isNotEmpty) {
+        String errorMessage =
+            emailErrors.isNotEmpty ? emailErrors.first : passwordErrors.first;
         emit(AuthFailure(
-          error: 'Validation Error',
+          error: errorMessage,
           emailErrors: emailErrors,
           passwordErrors: passwordErrors,
         ));

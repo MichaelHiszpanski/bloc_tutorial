@@ -34,7 +34,13 @@ void main() {
             AuthLoginRequested(email: "invalid-email", password: "123456"));
       },
       wait: const Duration(seconds: 3),
-      expect: () => [AuthLoading(), AuthFailure(error: 'Invalid email format')],
+      expect: () => [
+        AuthLoading(),
+        AuthFailure(
+            error: 'Invalid email format',
+            emailErrors: ['Invalid email format'],
+            passwordErrors: [])
+      ],
     );
   });
 }
