@@ -26,6 +26,7 @@ final class AuthFailure extends AuthState {
     this.emailErrors = const [],
     this.passwordErrors = const [],
   });
+
   AuthFailure copyWith({
     String? error,
     List<String>? emailErrors,
@@ -39,7 +40,7 @@ final class AuthFailure extends AuthState {
   }
 
   @override
-  List<Object?> get props => [error];
+  List<Object?> get props => [error, emailErrors, passwordErrors];
 }
 
 final class AuthLoading extends AuthState {}

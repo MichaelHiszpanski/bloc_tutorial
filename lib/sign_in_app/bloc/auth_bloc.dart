@@ -76,34 +76,11 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  // void _onClearEmailErrors(ClearEmailErrors event, Emitter<AuthState> emit) {
-  //   if (state is AuthFailure) {
-  //     emit((state as AuthFailure).copyWith(
-  //       emailErrors: [],
-  //     ));
-  //   }
-  // }
-
-  // void _onClearPasswordErrors(
-  //     ClearPasswordErrors event, Emitter<AuthState> emit) {
-  //   if (state is AuthFailure) {
-  //     emit((state as AuthFailure).copyWith(
-  //       passwordErrors: [],
-  //     ));
-  //   }
-  // }
   void _onClearEmailErrors(ClearEmailErrors event, Emitter<AuthState> emit) {
     if (state is AuthFailure) {
-      emit(AuthFailure(
-        error: '',
+      final currentState = state as AuthFailure;
+      emit(currentState.copyWith(
         emailErrors: [],
-        passwordErrors: (state as AuthFailure).passwordErrors,
-      ));
-    } else if (state is AuthInitial || state is AuthLoading) {
-      emit(AuthFailure(
-        error: '',
-        emailErrors: [],
-        passwordErrors: [],
       ));
     }
   }
@@ -111,15 +88,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   void _onClearPasswordErrors(
       ClearPasswordErrors event, Emitter<AuthState> emit) {
     if (state is AuthFailure) {
-      emit(AuthFailure(
-        error: '',
-        emailErrors: (state as AuthFailure).emailErrors,
-        passwordErrors: [],
-      ));
-    } else if (state is AuthInitial || state is AuthLoading) {
-      emit(AuthFailure(
-        error: '',
-        emailErrors: [],
+      final currentState = state as AuthFailure;
+      emit(currentState.copyWith(
         passwordErrors: [],
       ));
     }

@@ -20,19 +20,6 @@ class _LoginScreenState extends State<LoginScreen> {
   final passwordController = TextEditingController();
   List<String> emailErrors = [];
   List<String> passwordErrors = [];
-  void clearEmailErrors() {
-    setState(() {
-      print('Clearing email errors');
-      context.read<AuthBloc>().add(ClearEmailErrors());
-    });
-  }
-
-  void clearPasswordErrors() {
-    setState(() {
-      print('Clearing password errors');
-      context.read<AuthBloc>().add(ClearPasswordErrors());
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +79,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: emailController,
                     errorMessages:
                         state is AuthFailure ? state.emailErrors : [],
-                    onFocus: clearEmailErrors,
+                    onFocus: () {
+                      context.read<AuthBloc>().add(ClearEmailErrors());
+                    },
                   ),
                   const SizedBox(height: 20),
                   CustomTextInput(
@@ -100,7 +89,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     controller: passwordController,
                     errorMessages:
                         state is AuthFailure ? state.passwordErrors : [],
-                    onFocus: clearPasswordErrors,
+                    onFocus: () {
+                      context.read<AuthBloc>().add(ClearPasswordErrors());
+                    },
                   ),
                   const SizedBox(height: 20),
                   GradientButton(
