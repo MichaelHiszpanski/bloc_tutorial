@@ -8,6 +8,7 @@ import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
 import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
 import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
+import 'package:bloc_tutorial/utils/app_routes/app_routes.dart';
 import 'package:bloc_tutorial/utils/bloc_provider/bloc_provider.dart';
 import 'package:bloc_tutorial/weather_app/bloc/weather_bloc.dart';
 import 'package:bloc_tutorial/weather_app/data/data_provider/weather_data_provider.dart';
@@ -38,14 +39,7 @@ class MainApp extends StatelessWidget {
             colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
             useMaterial3: true),
         home: const HomePage(title: "Home Page"),
-        routes: {
-          '/to_do_list_app/todo_list': (_) => const TodoList(),
-          '/to_do_list_app/add_todo_page': (_) => const AddTodoPage(),
-          '/home_page': (_) => const HomePage(title: "Home Page"),
-          '/sign_in_app/login_page': (_) => const LoginScreen(),
-          '/sign_in_app/user_detail': (_) => const UserDetail(),
-          '/weather_app/weather_page': (_) => WeatherPage()
-        },
+        routes: AppRoutes.routes,
       )),
     );
   }
