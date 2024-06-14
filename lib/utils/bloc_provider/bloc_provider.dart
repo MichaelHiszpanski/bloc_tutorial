@@ -10,7 +10,7 @@ import 'package:bloc_tutorial/weather_app/data/repository/weather_repository.dar
 class AppBlocProviders extends StatelessWidget {
   final Widget child;
 
-  const AppBlocProviders({required this.child, Key? key}) : super(key: key);
+  const AppBlocProviders({required this.child, super.key});
 
   @override
   Widget build(BuildContext context) {

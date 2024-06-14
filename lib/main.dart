@@ -1,19 +1,8 @@
-import 'package:bloc_tutorial/bloc/counter_bloc.dart';
-import 'package:bloc_tutorial/cubit/counter_cubit.dart';
 import 'package:bloc_tutorial/home_page.dart';
 import 'package:bloc_tutorial/utils/app_bloc_observer.dart';
-import 'package:bloc_tutorial/sign_in_app/bloc/auth_bloc.dart';
-import 'package:bloc_tutorial/sign_in_app/login_page.dart';
-import 'package:bloc_tutorial/sign_in_app/user_detail_page.dart';
-import 'package:bloc_tutorial/to_do_list_app/add_todo_page.dart';
-import 'package:bloc_tutorial/to_do_list_app/cubit/todo_cubit.dart';
-import 'package:bloc_tutorial/to_do_list_app/todo_list.dart';
+import 'package:bloc_tutorial/utils/app_repositories/app_repositories.dart';
 import 'package:bloc_tutorial/utils/app_routes/app_routes.dart';
 import 'package:bloc_tutorial/utils/bloc_provider/bloc_provider.dart';
-import 'package:bloc_tutorial/weather_app/bloc/weather_bloc.dart';
-import 'package:bloc_tutorial/weather_app/data/data_provider/weather_data_provider.dart';
-import 'package:bloc_tutorial/weather_app/data/repository/weather_repository.dart';
-import 'package:bloc_tutorial/weather_app/weather_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -27,11 +16,7 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MultiRepositoryProvider(
-      providers: [
-        RepositoryProvider(
-            create: (context) => WeatherRepository(WeatherDataProvider()))
-      ],
+    return AppRepositories(
       child: AppBlocProviders(
           child: MaterialApp(
         title: "Block Tutorial",
